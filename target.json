@@ -1,0 +1,23 @@
+{
+  "web": {
+    "baseUrl": "https://onliner.by"
+  },
+  "login": {
+    "username": "UserTest",
+    "password": "testtaskpassword"
+  },
+  "search": {
+    "prod_name": "Thinkpad T14"
+  },
+  "navigation": {
+    "tab_name": "Каталог",
+    "tab_url": "https://catalog.onliner.by/"
+  },
+  "compare": {
+    "url": "https://catalog.onliner.by/compare/"
+  },
+  "order": {
+    "cart_url": "https://cart.onliner.by",
+    "order_menu_url": "https://cart.onliner.by/order"
+  }
+}
