@@ -7,7 +7,6 @@ import pytest
 class TestOnlinerSuite(object):
 
     @pytest.mark.tcid1
-    @pytest.mark.test
     def test_log_in(self, app):
         app.navigate_to_home_page()
 
@@ -63,7 +62,6 @@ class TestOnlinerSuite(object):
         time.sleep(4)
 
     @pytest.mark.tcid5
-    @pytest.mark.test
     def test_order(self, app):
         app.navigate_to_home_page()
 

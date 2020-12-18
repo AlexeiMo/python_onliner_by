@@ -70,5 +70,6 @@ class OrderActions(BasePage, BasePageObject):
         time.sleep(1)
         self.driver.get(url=self.app.config['order']['cart_url'])
         ActionChains(self.driver).move_to_element(self.order_actions.remove_field).click().perform()
+        time.sleep(1)
         # WebDriverWait(self.driver, 10).until_not(EC.visibility_of(self.order_actions.remove))
         self.order_actions.remove.click()

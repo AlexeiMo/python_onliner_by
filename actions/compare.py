@@ -41,10 +41,12 @@ class CompareActions(BasePage, BasePageObject):
 
     def set_compare_checkbox(self):
         LOGGER.info("Set compare checkbox")
+        time.sleep(1)
         self.compare_actions.compare_checkbox.click()
 
     def navigate_to_compare_page(self):
         LOGGER.info("Navigate to compare page")
+        time.sleep(1)
         self.compare_actions.compare_button.click()
 
     def verify_comparison(self, url):
