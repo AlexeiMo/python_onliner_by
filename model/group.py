@@ -6,5 +6,4 @@ class Group:
         self.password = password
 
     def __repr__(self):
-        return "%s:%s;%s;" % self.baseUrl, \
-               self.username, self.password
+        return "{0}, {1}, {2}".format(self.baseUrl, self.username, self.password)
