@@ -1,6 +1,4 @@
 pytest
-pytest-allure-adaptor
-allure-python-commons
 webium
 atomicwrites
 attrs

@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from webium import BasePage, Find, Finds
+from webium import BasePage, Find
 
 
 class OrderPageLocators(BasePage):
@@ -15,3 +15,4 @@ class OrderPageLocators(BasePage):
                       value="a[class='button-style button-style_primary button-style_small cart-form__button']")
 
     remove = Find(by=By.XPATH, value="//div[@class='cart-form__offers-part cart-form__offers-part_remove']/div/a")
+    remove_field = Find(by=By.XPATH, value="//div[@class='cart-form__control']//input")

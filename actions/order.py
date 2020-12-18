@@ -1,11 +1,16 @@
+import logging
 import time
 
+from webium import BasePage
+
 from pages.base_page_object import BasePageObject
+from pages.compare_page import ComparePageLocators
 from pages.navigate_menu_page import NavigateMenuPageLocators
 from pages.order_page import OrderPageLocators
-from pages.compare_page import ComparePageLocators
-import logging
-from webium import BasePage
+
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 LOGGER = logging.getLogger(__name__)
 
@@ -64,8 +69,6 @@ class OrderActions(BasePage, BasePageObject):
     def clear_cart(self):
         time.sleep(1)
         self.driver.get(url=self.app.config['order']['cart_url'])
-        time.sleep(1)
-        try:
-            self.order_actions.remove.click()
-        except:
-            pass
+        ActionChains(self.driver).move_to_element(self.order_actions.remove_field).click().perform()
+        # WebDriverWait(self.driver, 10).until_not(EC.visibility_of(self.order_actions.remove))
+        self.order_actions.remove.click()
