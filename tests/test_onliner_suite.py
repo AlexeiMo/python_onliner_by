@@ -1,55 +1,80 @@
-import time
-from model.group import Group
 import pytest
+
+from model.group import Group
 
 
 @pytest.mark.onliner
 class TestOnlinerSuite(object):
 
+    @pytest.mark.test
     @pytest.mark.tcid1
     def test_log_in(self, app):
         app.navigate_to_home_page()
-        app.login.get_log_in_page()
-        app.login.type_credentials(Group(
+        app.main_page_actions.click_login()
+
+        app.login_actions.type_credentials(Group(
             username=app.config['login']['username'],
             password=app.config['login']['password']))
-        app.login.submit_credentials()
-        app.login.verify_authorization()
+        app.login_actions.submit_credentials()
+
+        app.main_page_actions.verify_authorization()
 
     @pytest.mark.tcid2
     def test_search(self, app):
         app.navigate_to_home_page()
-        app.search.switch_to_search_frame()
-        app.search.type_search_option(name=app.config['search']['prod_name'])
-        app.search.verify_search_results(name=app.config['search']['prod_name'])
+        app.main_page_actions.switch_to_search_frame()
+
+        app.search_actions.search_item(name=app.config['search']['prod_name'])
+
+        app.search_actions.verify_search_results(name=app.config['search']['prod_name'])
 
     @pytest.mark.tcid3
     def test_menu_navigate(self, app):
         app.navigate_to_home_page()
-        app.navigate_menu.navigate_to_tab()
-        app.navigate_menu.verify_url(url=app.config['navigation']['tab_url'])
+        app.main_page_actions.navigate_to_section(name=app.config['navigation']['section_name'])
+        app.catalog_actions.verify_url(url=app.config['navigation']['section_url'])
 
     @pytest.mark.tcid4
     def test_compare(self, app):
         app.navigate_to_home_page()
-        app.compare.navigate_to_tab()
-        app.compare.navigate_to_section()
-        app.compare.get_product(id=0)
-        app.compare.set_compare_checkbox()
-        app.compare.navigate_to_section2()
-        app.compare.get_product(id=1)
-        app.compare.set_compare_checkbox()
-        app.compare.navigate_to_compare_page()
-        app.compare.verify_comparison(url=app.config['compare']['url'])
+        app.main_page_actions.navigate_to_section(name=app.config['navigation']['section_name'])
+        app.catalog_actions.navigate_to_subsection(name=app.config['navigation']['subsection_name'])
 
+        product_names = []
+        for i in range(0, 2):
+            app.catalog_actions.scroll_down()
+            app.catalog_actions.navigate_to_product(index=i)
+            product_names.append(app.product_actions.get_product_name())
+            app.product_actions.set_compare_checkbox()
+            app.product_actions.navigate_to_subsection()
+
+        app.catalog_actions.navigate_to_compare_page()
+
+        app.compare_actions.verify_url(url=app.config['compare']['url'])
+        for i in range(0, 2):
+            app.compare_actions.verify_product_name(index=i, name=product_names[i])
+
+        app.navigate_to_home_page()
+        app.main_page_actions.navigate_to_section(name=app.config['navigation']['section_name'])
+        app.catalog_actions.navigate_to_subsection(name=app.config['navigation']['subsection_name'])
+        app.catalog_actions.remove_compare_icon()
+
+    @pytest.mark.test
     @pytest.mark.tcid5
     def test_order(self, app):
         app.navigate_to_home_page()
-        app.order.navigate_to_tab()
-        app.order.navigate_to_section()
-        app.order.get_product()
-        app.order.get_product_traders()
-        app.order.add_product_to_cart()
-        app.order.navigate_to_cart()
-        app.order.navigate_to_order_menu()
-        app.order.verify_order_menu(url=app.config['order']['order_menu_url'])
+        app.main_page_actions.navigate_to_section(name=app.config['navigation']['section_name'])
+        app.catalog_actions.navigate_to_subsection(name=app.config['navigation']['subsection_name'])
+
+        app.catalog_actions.navigate_to_product()
+        app.product_actions.navigate_to_product_traders()
+        app.product_actions.click_buy()
+
+        app.main_page_actions.navigate_to_cart_page()
+        app.cart_actions.navigate_to_order_page()
+        app.cart_actions.verify_url(url=app.config['order']['order_menu_url'])
+
+        app.navigate_to_home_page()
+        app.main_page_actions.navigate_to_cart_page()
+        app.cart_actions.display_remove_field()
+        app.cart_actions.click_remove()

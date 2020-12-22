@@ -1,9 +1,11 @@
 from selenium import webdriver
+from actions.main_page import MainPageActions
 from actions.login import LoginActions
 from actions.search import SearchActions
-from actions.navigate_menu import NavigateMenuActions
+from actions.catalog import CatalogActions
+from actions.product import ProductActions
 from actions.compare import CompareActions
-from actions.order import OrderActions
+from actions.cart import CartActions
 from pathlib import Path
 from selenium.common.exceptions import WebDriverException
 import webium.settings
@@ -46,11 +48,13 @@ class Application:
         # Initialize pages
         LOGGER.info("Started browser")
         self.base_url = base_url
-        self.login = LoginActions(self)
-        self.search = SearchActions(self)
-        self.navigate_menu = NavigateMenuActions(self)
-        self.compare = CompareActions(self)
-        self.order = OrderActions(self)
+        self.main_page_actions = MainPageActions(self)
+        self.login_actions = LoginActions(self)
+        self.search_actions = SearchActions(self)
+        self.catalog_actions = CatalogActions(self)
+        self.product_actions = ProductActions(self)
+        self.compare_actions = CompareActions(self)
+        self.cart_actions = CartActions(self)
         self.config = config
 
     def navigate_to_home_page(self):
@@ -60,7 +64,6 @@ class Application:
 
     def destroy(self):
         # Stop the browser
-        self.clear_driver()
         self.driver.quit()
         LOGGER.info("Quits the driver and closes every associated window.")
 
@@ -76,6 +79,3 @@ class Application:
     # Gets the URL of the current page.
     def current_url(self):
         return self.driver.current_url
-
-    def clear_driver(self):
-        self.order.clear_cart()

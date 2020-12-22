@@ -10,8 +10,9 @@
     "prod_name": "Thinkpad T14"
   },
   "navigation": {
-    "tab_name": "Каталог",
-    "tab_url": "https://catalog.onliner.by/"
+    "section_name": "Каталог",
+    "section_url": "https://catalog.onliner.by/",
+    "subsection_name": "Телевизоры"
   },
   "compare": {
     "url": "https://catalog.onliner.by/compare/"
