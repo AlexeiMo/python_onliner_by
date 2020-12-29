@@ -3,8 +3,8 @@
     "baseUrl": "https://onliner.by"
   },
   "login": {
-    "username": "",
-    "password": ""
+    "username": "UserTest",
+    "password": "testtaskpassword"
   },
   "search": {
     "prod_name": "Thinkpad T14"
