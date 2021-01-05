@@ -1,5 +1,4 @@
 import logging
-import time
 
 from webium import BasePage
 from webium.wait import wait
