@@ -28,7 +28,7 @@ class Application:
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
             chrome_options.add_argument('--window-size=1920,1080')
-            driver_folder = Path("../../../test_API_UI/data")
+            driver_folder = Path("../data")
             file_to_open = driver_folder / "chromedriver.exe"
 
             self.driver = webdriver.Chrome(options=chrome_options,
